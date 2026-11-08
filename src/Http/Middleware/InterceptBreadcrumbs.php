@@ -40,7 +40,8 @@ class InterceptBreadcrumbs {
                 $responsePage = $response->original;
             }
 
-            if (is_null($responsePage) || !is_array($responsePage)) {
+            // Not an Inertia page (e.g. the JSON body of an error response): leave it untouched.
+            if (!is_array($responsePage) || !isset($responsePage['component'])) {
                 return $response;
             }
 
