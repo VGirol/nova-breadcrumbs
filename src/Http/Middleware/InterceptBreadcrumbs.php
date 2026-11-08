@@ -48,7 +48,10 @@ class InterceptBreadcrumbs {
             $responsePage['props'] ??= [];
             $responsePage['props']['breadcrumbs'] = $this->getBreadcrumbs($request);
 
-            return Inertia::render($responsePage['component'], $responsePage['props']);
+            // Keep the status of the page, e.g. 404 or 403 for the error pages of Nova.
+            return Inertia::render($responsePage['component'], $responsePage['props'])
+                ->toResponse($request)
+                ->setStatusCode($response->getStatusCode());
         } else {
             return $next($request);
         }
