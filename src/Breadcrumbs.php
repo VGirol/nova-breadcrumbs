@@ -213,7 +213,7 @@ class Breadcrumbs extends NovaBreadcrumbs {
         $dashboard = Nova::dashboardForKey($request->route("name"), $request);
 
         if (is_null($dashboard)) {
-            return;
+            return [];
         }
 
         if (method_exists($dashboard, "dashboardBreadcrumb")) {
